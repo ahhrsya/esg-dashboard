@@ -6,7 +6,7 @@
 
 @theme {
   --font-sans: "Inter", "system-ui", sans-serif;
-  --font-heading: "DM Sans", "system-ui", sans-serif;
+  --font-heading: "Inter", "system-ui", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
 
   --color-border: var(--border);
@@ -44,38 +44,43 @@
   --color-bg-nature: var(--bg-nature);
 
   --radius-lg: var(--radius);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 4px);
+  --radius-sm: calc(var(--radius) - 8px);
 }
 
 :root {
-  --background: oklch(1 0 0);
+  --background: oklch(0.985 0 0); /* Slate 50ish */
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.605 0.17 146.4);
+  
+  --primary: #2CCB89;
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
+  
+  --secondary: oklch(0.96 0 0);
   --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
+  --muted: oklch(0.96 0 0);
   --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
+  --accent: oklch(0.96 0 0);
   --accent-foreground: oklch(0.205 0 0);
+  
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.605 0.17 146.4);
-  --radius: 0.5rem;
   
-  --brand-green: #16A34A;
-  --brand-emerald: #059669;
-  --scope-1: #EF4444;
-  --scope-2: #F59E0B;
-  --scope-3: #3B82F6;
-  --bg-nature: #F0FDF4;
+  --border: oklch(0.92 0 0);
+  --input: oklch(0.92 0 0);
+  --ring: #2CCB89;
+  
+  --radius: 1rem; /* 16px */
+  
+  --brand-green: #2CCB89;
+  --brand-emerald: #1FA36B;
+  --scope-1: #38BDF8; /* Updated to match blue/teal palette in image */
+  --scope-2: #FBBF24; /* Amber/Yellow */
+  --scope-3: #10B981; /* Green */
+  --bg-nature: #F8FAFC;
 }
 
 .dark {
@@ -85,7 +90,7 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.145 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.985 0 0);
+  --primary: #2CCB89;
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
@@ -97,7 +102,7 @@
   --destructive-foreground: oklch(0.985 0 0);
   --border: oklch(0.269 0 0);
   --input: oklch(0.269 0 0);
-  --ring: oklch(0.87 0 0);
+  --ring: #2CCB89;
 }
 
 @layer base {
