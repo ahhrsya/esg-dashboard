@@ -5,6 +5,11 @@ import Calculator from "./pages/Calculator";
 import Explorer from "./pages/Explorer";
 import Targets from "./pages/Targets";
 import Offsets from "./pages/Offsets";
+import SupplyChain from "./pages/SupplyChain";
+import Reports from "./pages/Reports";
+import Benchmark from "./pages/Benchmark";
+import DataSources from "./pages/DataSources";
+import Settings from "./pages/Settings";
 
 function App() {
   return (
@@ -19,6 +24,11 @@ function App() {
             <Route path="/explorer" element={<Explorer />} />
             <Route path="/targets" element={<Targets />} />
             <Route path="/offsets" element={<Offsets />} />
+            <Route path="/supply-chain" element={<SupplyChain />} />
+            <Route path="/reports" element={<Reports />} />
+            <Route path="/benchmark" element={<Benchmark />} />
+            <Route path="/data-sources" element={<DataSources />} />
+            <Route path="/settings" element={<Settings />} />
           </Routes>
         </main>
       </div>
