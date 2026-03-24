@@ -8,8 +8,9 @@ export default function Explorer() {
   const COLORS = ["#EF4444", "#F59E0B", "#3B82F6"];
 
   const CustomizedContent = (props: any) => {
-    const { depth, x, y, width, height, index, name, value, colors } = props;
+    const { depth, x, y, width, height, index, name, value, colors, children } = props;
     const color = colors[index % colors.length];
+    const isLeaf = !children || children.length === 0;
 
     return (
       <g>
@@ -25,7 +26,7 @@ export default function Explorer() {
             strokeOpacity: 1 / (depth + 1e-10),
           }}
         />
-        {name && !name.includes('Scope') && width > 50 && height > 30 ? (
+        {isLeaf && width > 50 && height > 30 ? (
           <text
             x={x + 8}
             y={y + 20}
@@ -36,7 +37,7 @@ export default function Explorer() {
             {name}
           </text>
         ) : null}
-        {name && !name.includes('Scope') && width > 50 && height > 50 ? (
+        {isLeaf && width > 50 && height > 50 ? (
           <text
             x={x + 8}
             y={y + 40}
