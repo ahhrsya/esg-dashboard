@@ -25,7 +25,7 @@ export default function Explorer() {
             strokeOpacity: 1 / (depth + 1e-10),
           }}
         />
-        {depth === 2 && width > 50 && height > 30 ? (
+        {name && !name.includes('Scope') && width > 50 && height > 30 ? (
           <text
             x={x + 8}
             y={y + 20}
@@ -36,7 +36,7 @@ export default function Explorer() {
             {name}
           </text>
         ) : null}
-        {depth === 2 && width > 50 && height > 50 ? (
+        {name && !name.includes('Scope') && width > 50 && height > 50 ? (
           <text
             x={x + 8}
             y={y + 40}
