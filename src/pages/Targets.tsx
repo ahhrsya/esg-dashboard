@@ -28,10 +28,10 @@ export default function Targets() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {targets.map(target => (
-          <Card key={target.id} className="hover:shadow-md transition-shadow">
-            <CardHeader className="flex flex-row justify-between items-start pb-2">
-              <CardTitle className="text-xl leading-tight">{target.name}</CardTitle>
-              <Badge className={getStatusColor(target.status)}>{target.status}</Badge>
+          <Card key={target.id} className="hover:shadow-md transition-shadow border-border rounded-2xl">
+            <CardHeader className="flex flex-row justify-between items-start gap-4 pb-2">
+              <CardTitle className="text-xl leading-snug">{target.name}</CardTitle>
+              <Badge className={`shrink-0 ${getStatusColor(target.status)}`}>{target.status}</Badge>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="text-sm space-y-1">
