@@ -1,215 +1,220 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, AreaChart, Area, XAxis, YAxis, CartesianGrid } from "recharts";
-import { Calendar, Download, Leaf, Truck, Zap, Factory, TrendingUp, Search, Activity } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Calendar, Download, ArrowUpRight, ArrowDownRight, Wind } from "lucide-react";
 
 export default function Dashboard() {
   const pieData = [
-    { name: "Scope 1 (Direct)", value: 412, color: "var(--color-brand-green)" },
-    { name: "Scope 2 (Energy)", value: 1065, color: "#FBBF24" },
-    { name: "Scope 3 (Chain)", value: 1363, color: "#38BDF8" },
+    { name: "Scope 1", value: 412, color: "var(--color-brand-green)" },
+    { name: "Scope 2", value: 1065, color: "#FBBF24" },
+    { name: "Scope 3", value: 1363, color: "#38BDF8" },
   ];
 
   const areaData = [
-    { name: "Jan", scope1: 200, scope2: 400, scope3: 600 },
-    { name: "Feb", scope1: 300, scope2: 350, scope3: 500 },
-    { name: "Mar", scope1: 250, scope2: 450, scope3: 550 },
-    { name: "Apr", scope1: 400, scope2: 600, scope3: 750 },
-    { name: "May", scope1: 350, scope2: 550, scope3: 800 },
-    { name: "Jun", scope1: 500, scope2: 700, scope3: 900 },
-    { name: "Jul", scope1: 450, scope2: 650, scope3: 850 },
+    { name: "Jan", total: 1200 },
+    { name: "Feb", total: 1150 },
+    { name: "Mar", total: 1250 },
+    { name: "Apr", total: 1750 },
+    { name: "May", total: 1700 },
+    { name: "Jun", total: 2840 },
   ];
 
   const scorecardData = [
-    { company: "Logistics Partner A", score: 66.8, mentions: "3,212", impact: "-564.5" },
-    { company: "Energy Provider", score: -24.6, mentions: "2,249", impact: "672.2" },
-    { company: "Manufacturing Co.", score: 44.6, mentions: "2,800", impact: "800.2" },
-    { company: "Tech Services", score: 55.6, mentions: "813", impact: "-321.3" },
-    { company: "Office Supplies", score: 72.1, mentions: "450", impact: "-110.0" },
-  ];
-
-  const topCards = [
-    { title: "Total Emissions", value: "2,840", diff: "-2.5%", isPositive: true, icon: Leaf, bg: "bg-emerald-50 text-emerald-500" },
-    { title: "Scope 1 (Direct)", value: "412", diff: "+1.5%", isPositive: false, icon: Factory, bg: "bg-sky-50 text-sky-500" },
-    { title: "Scope 2 (Energy)", value: "1,065", diff: "+2.5%", isPositive: false, icon: Zap, bg: "bg-amber-50 text-amber-500" },
-    { title: "Scope 3 (Chain)", value: "1,363", diff: "-1.2%", isPositive: true, icon: Truck, bg: "bg-indigo-50 text-indigo-500" },
+    { company: "Logistics Partner A", score: "+66.8", impact: "-564.5", status: "good" },
+    { company: "Energy Provider", score: "-24.6", impact: "672.2", status: "bad" },
+    { company: "Manufacturing Co.", score: "+44.6", impact: "800.2", status: "good" },
+    { company: "Tech Services", score: "+55.6", impact: "-321.3", status: "good" },
   ];
 
   return (
-    <div className="space-y-6 animate-in fade-in duration-500">
+    <div className="space-y-6 animate-in fade-in duration-500 pb-10">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-2">
         <div>
-          <h2 className="text-2xl font-bold font-heading text-slate-800 flex items-center gap-2">
-            Home Overview
+          <h2 className="text-3xl font-bold font-heading text-slate-900 tracking-tight">
+            Overview
           </h2>
-          <p className="text-slate-500 text-sm mt-1">Track and manage your corporate carbon footprint.</p>
+          <p className="text-slate-500 text-sm mt-1">Real-time carbon accounting and sustainability metrics.</p>
         </div>
         <div className="flex items-center gap-3">
-          <Button variant="outline" className="bg-white text-slate-600 shadow-sm border-slate-200 rounded-lg h-9 px-4 text-sm font-medium">
-            <Calendar className="w-4 h-4 mr-2 text-slate-400" />
-            Last 30 Days
+          <Button variant="outline" className="bg-white border-slate-200 text-slate-700 h-10 px-4 rounded-xl font-medium shadow-sm">
+            <Calendar className="w-4 h-4 mr-2 text-slate-500" />
+            YTD 2024
           </Button>
-          <Button className="bg-slate-800 hover:bg-slate-700 text-white rounded-lg shadow-sm h-9 px-4 text-sm font-medium">
+          <Button className="bg-emerald-600 hover:bg-emerald-700 text-white h-10 px-5 rounded-xl font-medium shadow-sm border-0">
             <Download className="w-4 h-4 mr-2" />
-            Export Report
+            Download
           </Button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {topCards.map((card, idx) => (
-          <Card key={idx} className="border-border shadow-sm rounded-xl hover:shadow-md transition-shadow">
-            <CardContent className="p-5">
-              <div className="flex justify-between items-start mb-3">
-                <p className="text-slate-500 text-sm font-medium">{card.title}</p>
-                <div className={`p-2 rounded-lg ${card.bg}`}>
-                  <card.icon className="w-4 h-4" />
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
+        
+        {/* LEFT COLUMN */}
+        <div className="xl:col-span-8 flex flex-col gap-6">
+          
+          {/* Main Hero Metric + Graph */}
+          <Card className="border-slate-200 shadow-sm rounded-2xl overflow-hidden">
+            <div className="flex flex-col lg:flex-row">
+              <div className="lg:w-1/3 p-6 lg:p-8 bg-slate-50/50 flex flex-col justify-center border-b lg:border-b-0 lg:border-r border-slate-100">
+                <div className="w-12 h-12 bg-white rounded-xl shadow-sm flex items-center justify-center mb-6 border border-slate-100">
+                  <Wind className="w-6 h-6 text-emerald-600" />
+                </div>
+                <h3 className="text-slate-500 font-medium text-sm mb-1">Total Carbon Footprint</h3>
+                <div className="flex items-baseline gap-2 mb-2">
+                  <span className="text-5xl font-bold font-heading text-slate-900 tracking-tighter">2,840</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex items-center gap-1 bg-emerald-100 text-emerald-700 font-semibold px-2 py-0.5 rounded-md text-sm">
+                    <ArrowDownRight className="w-4 h-4" /> 2.5%
+                  </span>
+                  <span className="text-slate-500 text-sm">vs last year</span>
                 </div>
               </div>
-              <div className="flex flex-col gap-1">
-                <span className="text-3xl font-bold font-heading text-slate-800">{card.value}</span>
-                <div className="flex items-center gap-2 text-xs mt-1">
-                  <span className={`font-semibold flex items-center gap-0.5 ${card.isPositive ? 'text-brand-green' : 'text-rose-500'}`}>
-                    <Activity className="w-3 h-3" />
-                    {card.diff}
-                  </span>
-                  <span className="text-slate-400">vs previous period</span>
-                </div>
+              <div className="lg:w-2/3 p-6 h-[300px] lg:h-auto min-h-[300px]">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={areaData} margin={{ top: 20, right: 0, left: -20, bottom: 0 }}>
+                    <defs>
+                      <linearGradient id="colorTotal" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor="#059669" stopOpacity={0.2}/>
+                        <stop offset="95%" stopColor="#059669" stopOpacity={0}/>
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="#f1f5f9" />
+                    <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: "#94a3b8" }} dy={10} />
+                    <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: "#94a3b8" }} />
+                    <Tooltip cursor={{ stroke: '#cbd5e1', strokeWidth: 1, strokeDasharray: '4 4' }} contentStyle={{ borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)' }} />
+                    <Area type="monotone" dataKey="total" stroke="#059669" strokeWidth={3} fillOpacity={1} fill="url(#colorTotal)" activeDot={{ r: 6, fill: "#059669", stroke: "#fff", strokeWidth: 2 }} />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </Card>
+
+          {/* Table */}
+          <Card className="border-slate-200 shadow-sm rounded-2xl flex-1">
+            <CardHeader className="border-b border-slate-100 pb-4">
+              <CardTitle className="text-lg font-heading text-slate-800">Supply Chain Partners</CardTitle>
+              <CardDescription>Top contributors to your overall footprint</CardDescription>
+            </CardHeader>
+            <CardContent className="p-0">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm text-left">
+                  <thead className="text-xs text-slate-500 font-medium bg-slate-50/80">
+                    <tr>
+                      <th className="px-6 py-4 font-medium uppercase tracking-wider">Organization</th>
+                      <th className="px-6 py-4 font-medium uppercase tracking-wider">Impact Ratio</th>
+                      <th className="px-6 py-4 font-medium uppercase tracking-wider">ESG Score Trend</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {scorecardData.map((row, idx) => (
+                      <tr key={idx} className="hover:bg-slate-50/50 transition-colors">
+                        <td className="px-6 py-4">
+                          <span className="font-semibold text-slate-800">{row.company}</span>
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className="font-mono text-slate-600 bg-slate-100 px-2.5 py-1 rounded-md">{row.impact} tCO2e</span>
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-semibold ${row.status === 'good' ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'}`}>
+                            {row.status === 'good' ? <ArrowUpRight className="w-3 h-3" /> : <ArrowDownRight className="w-3 h-3" />}
+                            {row.score}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             </CardContent>
           </Card>
-        ))}
-      </div>
 
-      <div>
-        <Card className="border-border shadow-sm rounded-xl">
-          <CardHeader className="flex flex-row items-center justify-between pb-4">
-            <div>
-              <CardTitle className="text-lg font-heading text-slate-800">Emissions Overview</CardTitle>
-              <p className="text-xs text-slate-500 mt-1">Monthly carbon footprint tracking across all scopes</p>
-            </div>
-            <div className="flex items-center gap-4 text-xs font-medium text-slate-500 px-3 py-1.5 bg-slate-50 rounded-lg">
-              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-[3px] bg-brand-green"></span> Scope 1</span>
-              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-[3px] bg-[#FBBF24]"></span> Scope 2</span>
-              <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-[3px] bg-[#38BDF8]"></span> Scope 3</span>
-            </div>
-          </CardHeader>
-          <CardContent className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={areaData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <defs>
-                  <linearGradient id="fillScope1" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="var(--color-brand-green)" stopOpacity={0.4}/>
-                    <stop offset="95%" stopColor="var(--color-brand-green)" stopOpacity={0}/>
-                  </linearGradient>
-                  <linearGradient id="fillScope2" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#FBBF24" stopOpacity={0.4}/>
-                    <stop offset="95%" stopColor="#FBBF24" stopOpacity={0}/>
-                  </linearGradient>
-                  <linearGradient id="fillScope3" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#38BDF8" stopOpacity={0.4}/>
-                    <stop offset="95%" stopColor="#38BDF8" stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
-                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: "#64748B" }} dy={10} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: "#64748B" }} />
-                <Tooltip 
-                  contentStyle={{ borderRadius: '8px', border: '1px solid #E2E8F0', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}
-                />
-                <Area type="monotone" dataKey="scope3" stroke="#38BDF8" fill="url(#fillScope3)" strokeWidth={2} />
-                <Area type="monotone" dataKey="scope2" stroke="#FBBF24" fill="url(#fillScope2)" strokeWidth={2} />
-                <Area type="monotone" dataKey="scope1" stroke="var(--color-brand-green)" fill="url(#fillScope1)" strokeWidth={2} />
-              </AreaChart>
-            </ResponsiveContainer>
-          </CardContent>
-        </Card>
-      </div>
+        </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card className="lg:col-span-1 border-border shadow-sm rounded-xl flex flex-col">
-          <CardHeader className="pb-0">
-            <CardTitle className="text-lg font-heading text-slate-800">Emissions by Source</CardTitle>
-          </CardHeader>
-          <CardContent className="flex-1 flex flex-col items-center justify-center p-6">
-            <div className="h-[200px] w-full relative">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={pieData}
-                    innerRadius={65}
-                    outerRadius={90}
-                    paddingAngle={2}
-                    dataKey="value"
-                    stroke="none"
-                    cornerRadius={6}
-                  >
-                    {pieData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
-                    ))}
-                  </Pie>
-                  <Tooltip formatter={(value) => `${value} tCO2e`} />
-                </PieChart>
-              </ResponsiveContainer>
-              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                <span className="text-2xl font-bold font-heading text-slate-800">2.8k</span>
-                <span className="text-xs text-slate-500 font-medium">Total tCO2e</span>
+        {/* RIGHT COLUMN */}
+        <div className="xl:col-span-4 flex flex-col gap-6">
+
+          {/* ESG Score Mini Card */}
+           <Card className="border-slate-200 shadow-sm rounded-2xl bg-slate-900 border-0 text-white overflow-hidden relative">
+            <div className="absolute top-0 right-0 p-32 bg-emerald-500/20 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+            <CardContent className="p-6 relative z-10">
+              <p className="text-slate-400 text-sm font-medium mb-1">Corporate ESG Score</p>
+              <div className="flex items-end gap-3 mb-4">
+                <span className="text-5xl font-bold font-heading tracking-tighter text-white">61</span>
+                <span className="text-slate-400 text-lg mb-1">/ 100</span>
               </div>
-            </div>
-            
-            <div className="w-full mt-4 space-y-3">
-              {pieData.map((item, i) => (
-                <div key={i} className="flex items-center justify-between text-sm">
-                  <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }}></span>
-                    <span className="text-slate-600">{item.name}</span>
-                  </div>
-                  <span className="font-semibold text-slate-800">{item.value}</span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+              <div className="w-full bg-slate-800 h-2 rounded-full overflow-hidden mb-3">
+                <div className="bg-emerald-500 h-full rounded-full" style={{ width: '61%' }}></div>
+              </div>
+              <p className="text-emerald-400 text-xs font-medium">Strong profile (+4 points from Q2)</p>
+            </CardContent>
+          </Card>
 
-        <Card className="lg:col-span-2 border-border shadow-sm rounded-xl">
-          <CardHeader className="flex flex-row items-center justify-between border-b pb-4">
-            <CardTitle className="text-lg font-heading text-slate-800">Value Chain Sentiment</CardTitle>
-            <div className="relative">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-              <Input className="w-56 pl-9 h-9 bg-slate-50 border-slate-200 rounded-lg text-sm" placeholder="Search suppliers..." />
-            </div>
-          </CardHeader>
-          <CardContent className="p-0">
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm text-left">
-                <thead className="text-xs text-slate-500 font-semibold uppercase bg-slate-50/50 border-b">
-                  <tr>
-                    <th className="px-6 py-4">Partner</th>
-                    <th className="px-6 py-4">Sentiment Score</th>
-                    <th className="px-6 py-4">Media Mentions</th>
-                    <th className="px-6 py-4">Impact Ratio</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border">
-                  {scorecardData.map((row, idx) => (
-                    <tr key={idx} className="hover:bg-slate-50/20 transition-colors">
-                      <td className="px-6 py-4 font-medium text-slate-800">{row.company}</td>
-                      <td className="px-6 py-4">
-                        <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium ${row.score > 0 ? 'bg-brand-green/10 text-brand-green' : 'bg-rose-500/10 text-rose-500'}`}>
-                          {row.score > 0 ? <TrendingUp className="w-3 h-3" /> : <Activity className="w-3 h-3" />}
-                          {row.score > 0 ? `+${row.score}` : row.score}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-slate-600">{row.mentions}</td>
-                      <td className="px-6 py-4 font-mono text-slate-600">{row.impact}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </CardContent>
-        </Card>
+          {/* Scope Breakdown list */}
+          <Card className="border-slate-200 shadow-sm rounded-2xl flex-1 flex flex-col">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg font-heading text-slate-800">Emissions by Scope</CardTitle>
+            </CardHeader>
+            <CardContent className="flex-1 flex flex-col pt-4">
+              
+              <div className="h-[220px] w-full relative mb-6">
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={pieData}
+                      innerRadius={60}
+                      outerRadius={90}
+                      paddingAngle={4}
+                      dataKey="value"
+                      stroke="none"
+                      cornerRadius={6}
+                    >
+                      {pieData.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Tooltip formatter={(value) => `${value} tCO2e`} contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }} />
+                  </PieChart>
+                </ResponsiveContainer>
+              </div>
+
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="font-medium text-slate-700">Scope 3 </span>
+                    <span className="font-bold text-slate-900">1,363 <span className="text-slate-400 font-normal">tCO2e</span></span>
+                  </div>
+                  <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                    <div className="bg-[#38BDF8] h-full rounded-full" style={{ width: '48%' }}></div>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="font-medium text-slate-700">Scope 2 </span>
+                    <span className="font-bold text-slate-900">1,065 <span className="text-slate-400 font-normal">tCO2e</span></span>
+                  </div>
+                  <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                    <div className="bg-[#FBBF24] h-full rounded-full" style={{ width: '37%' }}></div>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="font-medium text-slate-700">Scope 1 </span>
+                    <span className="font-bold text-slate-900">412 <span className="text-slate-400 font-normal">tCO2e</span></span>
+                  </div>
+                  <div className="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                    <div className="bg-brand-green h-full rounded-full" style={{ width: '15%' }}></div>
+                  </div>
+                </div>
+              </div>
+
+            </CardContent>
+          </Card>
+
+        </div>
+
       </div>
     </div>
   );
